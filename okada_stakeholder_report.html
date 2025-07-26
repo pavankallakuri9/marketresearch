@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okada Riders Stakeholder Analysis Report</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .executive-summary {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 5px solid #e74c3c;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            height: 400px;
+        }
+
+        .stakeholder-card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .stakeholder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stakeholder-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stakeholder-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+
+        .stakeholder-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .impact-level {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .high-impact { background: #e74c3c; color: white; }
+        .medium-impact { background: #f39c12; color: white; }
+        .low-impact { background: #27ae60; color: white; }
+
+        .metric-box {
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #3498db;
+            font-size: 1.1em;
+        }
+
+        .network-diagram {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .recommendation {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .recommendation h4 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .header h1 { font-size: 2em; }
+            .grid { grid-template-columns: 1fr; }
+            .chart-container { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛵 Okada Riders Stakeholder Analysis</h1>
+            <div class="subtitle">Comprehensive Ecosystem Mapping & Impact Assessment (2023-2025)</div>
+            <div class="executive-summary">
+                <strong>Executive Summary:</strong> The Okada industry ecosystem has undergone dramatic transformation, with traditional stakeholder relationships collapsing under economic pressure, regulatory enforcement, and security challenges. This report maps the complex network of affected parties and their evolving dynamics.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Key Ecosystem Metrics</h2>
+            <div class="grid">
+                <div class="metric-box">
+                    <span class="metric-value">11</span>
+                    <span class="metric-label">Primary Stakeholder Groups</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">85%</span>
+                    <span class="metric-label">Revenue Decline (2023-2025)</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">₦1.2M</span>
+                    <span class="metric-label">Current Bike Cost (New)</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">60%</span>
+                    <span class="metric-label">Rider Exit Rate</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Primary Stakeholders Analysis</h2>
+            
+            <div class="stakeholder-card">
+                <div class="stakeholder-header">
+                    <div class="stakeholder-icon">🏍️</div>
+                    <div>
+                        <div class="stakeholder-title">Okada Riders (Primary Operators)</div>
+                        <div class="impact-level high-impact">CRITICAL IMPACT</div>
+                    </div>
+                </div>
+                <p><strong>Population:</strong> ~2.5M active (down from 4M in 2022)</p>
+                <p><strong>Key Changes:</strong> Mass exodus, shift to rental models, return migration to home countries</p>
+                <p><strong>Current Status:</strong> Survival mode - daily earnings dropped from ₦8,000 to ₦2,000</p>
+                <p><strong>Geographic Distribution:</strong> Concentrated in semi-urban areas, rural towns, border regions</p>
+            </div>
+
+            <div class="stakeholder-card">
+                <div class="stakeholder-header">
+                    <div class="stakeholder-icon">🏢</div>
+                    <div>
+                        <div class="stakeholder-title">Fleet Owners & Rental Companies</div>
+                        <div class="impact-level high-impact">CRITICAL IMPACT</div>
+                    </div>
+                </div>
+                <p><strong>Business Model:</strong> Shifted from hire-purchase to daily rentals (₦2,500-₦5,000/day)</p>
+                <p><strong>Strategy:</strong> Focus on used bike acquisition and rapid recovery (8-10 months)</p>
+                <p><strong>Market Position:</strong> Emerging as dominant force in the ecosystem</p>
+                <p><strong>Risk Factors:</strong> Enforcement raids, bike seizures, rider defaults</p>
+            </div>
+
+            <div class="stakeholder-card">
+                <div class="stakeholder-header">
+                    <div class="stakeholder-icon">💳</div>
+                    <div>
+                        <div class="stakeholder-title">Fintech/Finance Aggregators</div>
+                        <div class="impact-level high-impact">CRITICAL IMPACT</div>
+                    </div>
+                </div>
+                <p><strong>Major Players:</strong> MAX.ng, Watu, Dot.ng, Mevron, MBSN</p>
+                <p><strong>Status:</strong> Mass withdrawal from Okada financing</p>
+                <p><strong>Pivots:</strong> EV rentals, corporate fleets, consumer finance, business exits</p>
+                <p><strong>Losses:</strong> Thousands of repossessed bikes, failed recovery operations</p>
+            </div>
+
+            <div class="stakeholder-card">
+                <div class="stakeholder-header">
+                    <div class="stakeholder-icon">🚔</div>
+                    <div>
+                        <div class="stakeholder-title">Government & Enforcement Agencies</div>
+                        <div class="impact-level medium-impact">HIGH INFLUENCE</div>
+                    </div>
+                </div>
+                <p><strong>Agencies:</strong> Lagos Taskforce, Police, LASTMA, Army, Immigration</p>
+                <p><strong>Actions:</strong> Total urban bans, public bike crushing, 3-year jail penalties</p>
+                <p><strong>Coverage:</strong> Lagos, Abuja, Port Harcourt, major highways</p>
+                <p><strong>Impact:</strong> Forced industry underground, rural migration</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Stakeholder Network Visualization</h2>
+            <div id="networkDiagram" class="network-diagram"></div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e74c3c;"></div>
+                    <span>Critical Impact Stakeholders</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f39c12;"></div>
+                    <span>High Influence Stakeholders</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3498db;"></div>
+                    <span>Supporting Ecosystem</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #27ae60;"></div>
+                    <span>Emerging Players</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Economic Impact Analysis</h2>
+            <div class="grid">
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="costChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="stakeholderImpactChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="migrationChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⏰ Timeline of Stakeholder Transformation</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">January 2023</div>
+                    <h4>Hyperinflation Begins</h4>
+                    <p>Inflation hits 21.82%, initial pressure on rider earnings and fintech margins</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">June 2023</div>
+                    <h4>Fuel Subsidy Removal</h4>
+                    <p>Fuel prices jump from ₦238 to ₦500+/L, massive impact on operational costs</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">December 2023</div>
+                    <h4>First Wave of Fintech Exits</h4>
+                    <p>Dot.ng and Mevron begin withdrawing from Okada financing</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">March 2024</div>
+                    <h4>Enforcement Intensification</h4>
+                    <p>Lagos expands task force operations, mass bike seizures begin</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">June 2024</div>
+                    <h4>Peak Economic Crisis</h4>
+                    <p>Inflation reaches 34.19%, Naira hits ₦1,531/USD, mass rider exodus</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">September 2024</div>
+                    <h4>Border Security Collapse</h4>
+                    <p>Lakurawa emergence, ECOWAS breakdown affects cross-border operations</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">January 2025</div>
+                    <h4>Industry Consolidation</h4>
+                    <p>Rental model dominance, used bike market explosion, fintech pivot complete</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Secondary & Emerging Stakeholders</h2>
+            
+            <div class="grid">
+                <div class="stakeholder-card">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-icon">👥</div>
+                        <div>
+                            <div class="stakeholder-title">Passengers/End Users</div>
+                            <div class="impact-level medium-impact">MEDIUM IMPACT</div>
+                        </div>
+                    </div>
+                    <p><strong>Impact:</strong> Reduced service availability, higher fares, safety concerns</p>
+                    <p><strong>Adaptation:</strong> Shift to ride-hailing apps, public transport, walking</p>
+                </div>
+
+                <div class="stakeholder-card">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-icon">🏭</div>
+                        <div>
+                            <div class="stakeholder-title">Motorcycle Manufacturers/Dealers</div>
+                            <div class="impact-level medium-impact">MEDIUM IMPACT</div>
+                        </div>
+                    </div>
+                    <p><strong>Brands:</strong> Bajaj, TVS, Honda, Haojue</p>
+                    <p><strong>Impact:</strong> 70% sales decline, shift to parts & service revenue</p>
+                </div>
+
+                <div class="stakeholder-card">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-icon">⛽</div>
+                        <div>
+                            <div class="stakeholder-title">Fuel Suppliers & Stations</div>
+                            <div class="impact-level low-impact">LOW IMPACT</div>
+                        </div>
+                    </div>
+                    <p><strong>Impact:</strong> Reduced bulk sales to Okada operators</p>
+                    <p><strong>Compensation:</strong> Higher margins on remaining sales</p>
+                </div>
+
+                <div class="stakeholder-card">
+                    <div class="stakeholder-header">
+                        <div class="stakeholder-icon">🌍</div>
+                        <div>
+                            <div class="stakeholder-title">Cross-Border Communities</div>
+                            <div class="impact-level high-impact">CRITICAL IMPACT</div>
+                        </div>
+                    </div>
+                    <p><strong>Countries:</strong> Benin, Niger, Cameroon, Chad</p>
+                    <p><strong>Impact:</strong> Return migration, lost remittances, disrupted trade</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Strategic Recommendations by Stakeholder</h2>
+            
+            <div class="recommendation">
+                <h4>For Government/Regulators:</h4>
+                <p>• Develop transitional support programs for displaced riders<br>
+                • Create legal delivery/logistics frameworks<br>
+                • Establish rider skills retraining initiatives<br>
+                • Consider graduated enforcement in rural areas</p>
+            </div>
+
+            <div class="recommendation">
+                <h4>For Fleet Owners:</h4>
+                <p>• Focus on used bike acquisition and refurbishment<br>
+                • Develop insurance products for rental operations<br>
+                • Create rider support and retention programs<br>
+                • Diversify into delivery and logistics services</p>
+            </div>
+
+            <div class="recommendation">
+                <h4>For Fintech Companies:</h4>
+                <p>• Pivot to EV financing and corporate fleets<br>
+                • Develop alternative livelihood finance products<br>
+                • Partner with delivery companies for rider placement<br>
+                • Focus on rural and semi-urban opportunities</p>
+            </div>
+
+            <div class="recommendation">
+                <h4>For International Development:</h4>
+                <p>• Support cross-border reintegration programs<br>
+                • Fund alternative livelihood initiatives<br>
+                • Develop regional migration policy frameworks<br>
+                • Invest in rural economic development</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Network Diagram
+        function createNetworkDiagram() {
+            const width = document.getElementById('networkDiagram').offsetWidth;
+            const height = 500;
+
+            const svg = d3.select('#networkDiagram')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+            const nodes = [
+                {id: 'riders', name: 'Okada Riders', type: 'critical', size: 25},
+                {id: 'fleet', name: 'Fleet Owners', type: 'critical', size: 20},
+                {id: 'fintech', name: 'Fintech Companies', type: 'critical', size: 18},
+                {id: 'govt', name: 'Government', type: 'influence', size: 22},
+                {id: 'passengers', name: 'Passengers', type: 'supporting', size: 15},
+                {id: 'manufacturers', name: 'Bike Manufacturers', type: 'supporting', size: 16},
+                {id: 'fuel', name: 'Fuel Suppliers', type: 'supporting', size: 14},
+                {id: 'crossborder', name: 'Cross-border Communities', type: 'critical', size: 17},
+                {id: 'delivery', name: 'Delivery Companies', type: 'emerging', size: 16},
+                {id: 'ridehail', name: 'Ride-hailing Apps', type: 'emerging', size: 15},
+                {id: 'communities', name: 'Local Communities', type: 'supporting', size: 13}
+            ];
+
+            const links = [
+                {source: 'riders', target: 'fleet', strength: 5},
+                {source: 'riders', target: 'fintech', strength: 3},
+                {source: 'riders', target: 'govt', strength: 4},
+                {source: 'riders', target: 'passengers', strength: 5},
+                {source: 'fleet', target: 'manufacturers', strength: 4},
+                {source: 'fintech', target: 'fleet', strength: 3},
+                {source: 'riders', target: 'fuel', strength: 4},
+                {source: 'riders', target: 'crossborder', strength: 3},
+                {source: 'riders', target: 'delivery', strength: 2},
+                {source: 'passengers', target: 'ridehail', strength: 3},
+                {source: 'govt', target: 'communities', strength: 2}
+            ];
+
+            const colorScale = {
+                'critical': '#e74c3c',
+                'influence': '#f39c12',
+                'supporting': '#3498db',
+                'emerging': '#27ae60'
+            };
+
+            const simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(links).id(d => d.id).strength(d => d.strength * 0.1))
+                .force('charge', d3.forceManyBody().strength(-300))
+                .force('center', d3.forceCenter(width / 2, height / 2));
+
+            const link = svg.append('g')
+                .selectAll('line')
+                .data(links)
+                .enter().append('line')
+                .attr('stroke', '#bdc3c7')
+                .attr('stroke-width', d => d.strength)
+                .attr('opacity', 0.6);
+
+            const node = svg.append('g')
+                .selectAll('circle')
+                .data(nodes)
+                .enter().append('circle')
+                .attr('r', d => d.size)
+                .attr('fill', d => colorScale[d.type])
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 2)
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended));
+
+            const label = svg.append('g')
+                .selectAll('text')
+                .data(nodes)
+                .enter().append('text')
+                .text(d => d.name)
+                .attr('font-size', '12px')
+                .attr('font-weight', 'bold')
+                .attr('fill', '#2c3e50')
+                .attr('text-anchor', 'middle')
+                .attr('dy', d => d.size + 20);
+
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                node
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+
+                label
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y);
+            });
+
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+        }
+
+        // Revenue Impact Chart
+        function createRevenueChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2022', '2023 Q1', '2023 Q2', '2023 Q3', '2023 Q4', '2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4', '2025 Q1'],
+                    datasets: [{
+                        label: 'Average Daily Earnings (₦)',
+                        data: [8000, 7500, 6000, 4500, 3500, 3000, 2500, 2200, 2000, 2000],
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Okada Rider Daily Earnings Decline'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Daily Earnings (₦)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cost Structure Chart
+        function createCostChart() {
+            const ctx = document.getElementById('costChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Fuel (2022)', 'Fuel (2025)', 'Bike Cost (2022)', 'Bike Cost (2025)', 'Daily Rental (2025)'],
+                    datasets: [{
+                        label: 'Cost (₦)',
+                        data: [238, 880, 550000, 1250000, 3500],
+                        backgroundColor: [
+                            '#3498db',
+                            '#e74c3c',
+                            '#3498db',
+                            '#e74c3c',
+                            '#f39c12'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Cost Structure Changes (2022 vs 2025)'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cost (₦)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Stakeholder Impact Chart
+        function createStakeholderImpactChart() {
+            const ctx = document.getElementById('stakeholderImpactChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Financial Impact', 'Operational Disruption', 'Market Position', 'Future Viability', 'Adaptation Capacity'],
+                    datasets: [
+                        {
+                            label: 'Okada Riders',
+                            data: [95, 90, 20, 15, 40],
+                            borderColor: '#e74c3c',
+                            backgroundColor: 'rgba(231, 76, 60, 0.2)'
+                        },
+                        {
+                            label: 'Fleet Owners',
+                            data: [70, 60, 80, 75, 85],
+                            borderColor: '#f39c12',
+                            backgroundColor: 'rgba(243, 156, 18, 0.2)'
+                        },
+                        {
+                            label: 'Fintech Companies',
+                            data: [85, 80, 30, 40, 70],
+                            borderColor: '#9b59b6',
+                            backgroundColor: 'rgba(155, 89, 182, 0.2)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Stakeholder Impact Assessment (0-100 scale)'
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // Migration Pattern Chart
+        function createMigrationChart() {
+            const ctx = document.getElementById('migrationChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Returned to Home Country', 'Moved to Rural Areas', 'Switched to Other Jobs', 'Still Active (Urban)', 'Still Active (Rural)'],
+                    datasets: [{
+                        data: [35, 25, 20, 10, 10],
+                        backgroundColor: [
+                            '#e74c3c',
+                            '#f39c12',
+                            '#9b59b6',
+                            '#3498db',
+                            '#27ae60'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Okada Rider Migration & Career Patterns (2023-2025)'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize all visualizations
+        document.addEventListener('DOMContentLoaded', function() {
+            createNetworkDiagram();
+            createRevenueChart();
+            createCostChart();
+            createStakeholderImpactChart();
+            createMigrationChart();
+        });
+    </script>
+</body>
+</html>

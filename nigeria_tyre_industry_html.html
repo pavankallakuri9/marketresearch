@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigeria Tyre Industry Market Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-title {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .metric-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-subtitle {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .nav-btn.active {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        .chart-container {
+            padding: 40px;
+            background: white;
+        }
+        
+        .chart-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 500px;
+            margin: 20px 0;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .chart-grid .chart-wrapper {
+            height: 400px;
+        }
+        
+        .table-container {
+            margin: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .insights {
+            margin: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .insights-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        
+        .insights-content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .insight-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .insight-section ul {
+            list-style: none;
+        }
+        
+        .insight-section li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .insight-section li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .insights-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Nigeria Tyre Industry Market Analysis</h1>
+            <p>Comprehensive segment-wise and brand-wise market overview</p>
+        </div>
+        
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-title">Total Market Value</div>
+                <div class="metric-value" style="color: #667eea;">₦1,141B</div>
+                <div class="metric-subtitle">Nigerian Naira</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Total Volume</div>
+                <div class="metric-value" style="color: #28a745;">12.85M</div>
+                <div class="metric-subtitle">Pieces</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">MRF Market Share</div>
+                <div class="metric-value" style="color: #ffc107;">1.28%</div>
+                <div class="metric-subtitle">By Volume</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">MRF Value Share</div>
+                <div class="metric-value" style="color: #dc3545;">5.7%</div>
+                <div class="metric-subtitle">By Value</div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showChart('bubble')">Bubble Chart</button>
+            <button class="nav-btn" onclick="showChart('market-share')">Market Share</button>
+            <button class="nav-btn" onclick="showChart('volume')">Volume Analysis</button>
+            <button class="nav-btn" onclick="showChart('price')">Price Analysis</button>
+        </div>
+        
+        <div class="chart-container">
+            <div id="bubble-chart" class="chart-section">
+                <div class="chart-title">Market Position Analysis - Bubble Chart</div>
+                <p style="text-align: center; margin-bottom: 20px; color: #666;">
+                    Market Share vs Market Value vs Volume (Bubble Size)
+                </p>
+                <div class="chart-wrapper">
+                    <canvas id="bubbleCanvas"></canvas>
+                </div>
+            </div>
+            
+            <div id="market-share-chart" class="chart-section hidden">
+                <div class="chart-title">Market Share Analysis</div>
+                <div class="chart-grid">
+                    <div class="chart-wrapper">
+                        <canvas id="pieCanvas"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="barCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="volume-chart" class="chart-section hidden">
+                <div class="chart-title">Volume Comparison (MRF vs Others)</div>
+                <div class="chart-wrapper">
+                    <canvas id="volumeCanvas"></canvas>
+                </div>
+            </div>
+            
+            <div id="price-chart" class="chart-section hidden">
+                <div class="chart-title">Price Analysis by Segment</div>
+                <div class="chart-wrapper">
+                    <canvas id="priceCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <div class="table-header">Detailed Segment Analysis</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Segment</th>
+                        <th>MRF Qty (K)</th>
+                        <th>MRF Value (₦B)</th>
+                        <th>Total Market (₦B)</th>
+                        <th>MRF Share (%)</th>
+                        <th>Avg Price (₦)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Truck Nylon</td>
+                        <td>60.6</td>
+                        <td>17.6</td>
+                        <td>17.6</td>
+                        <td>10.73%</td>
+                        <td>₦220,000</td>
+                    </tr>
+                    <tr>
+                        <td>Light Truck Nylon</td>
+                        <td>66.0</td>
+                        <td>8.3</td>
+                        <td>8.3</td>
+                        <td>10.61%</td>
+                        <td>₦95,000</td>
+                    </tr>
+                    <tr>
+                        <td>Truck Radial</td>
+                        <td>18.0</td>
+                        <td>6.7</td>
+                        <td>488.3</td>
+                        <td>0.13%</td>
+                        <td>₦300,000</td>
+                    </tr>
+                    <tr>
+                        <td>Light Truck Radial</td>
+                        <td>15.0</td>
+                        <td>1.4</td>
+                        <td>83.6</td>
+                        <td>0.21%</td>
+                        <td>₦45,000</td>
+                    </tr>
+                    <tr>
+                        <td>Passenger Car</td>
+                        <td>24.0</td>
+                        <td>2.2</td>
+                        <td>387.2</td>
+                        <td>0.02%</td>
+                        <td>₦40,000</td>
+                    </tr>
+                    <tr>
+                        <td>Agriculture</td>
+                        <td>15.0</td>
+                        <td>4.5</td>
+                        <td>12.8</td>
+                        <td>1.11%</td>
+                        <td>₦300,000</td>
+                    </tr>
+                    <tr>
+                        <td>OTR Nylons</td>
+                        <td>3.0</td>
+                        <td>1.8</td>
+                        <td>14.4</td>
+                        <td>0.19%</td>
+                        <td>₦600,000</td>
+                    </tr>
+                    <tr>
+                        <td>OTR Radials</td>
+                        <td>6.0</td>
+                        <td>14.4</td>
+                        <td>62.4</td>
+                        <td>0.00%</td>
+                        <td>₦2,400,000</td>
+                    </tr>
+                    <tr>
+                        <td>Solids</td>
+                        <td>15.0</td>
+                        <td>1.4</td>
+                        <td>4.5</td>
+                        <td>0.80%</td>
+                        <td>₦90,000</td>
+                    </tr>
+                    <tr>
+                        <td>2-Wheeler Tyres</td>
+                        <td>180.0</td>
+                        <td>3.6</td>
+                        <td>42.6</td>
+                        <td>2.91%</td>
+                        <td>₦15,000</td>
+                    </tr>
+                    <tr>
+                        <td>3-Wheeler Tyres</td>
+                        <td>130.0</td>
+                        <td>2.9</td>
+                        <td>19.2</td>
+                        <td>4.17%</td>
+                        <td>₦22,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="insights">
+            <div class="insights-header">Key Market Insights</div>
+            <div class="insights-content">
+                <div class="insight-section">
+                    <h3>MRF Strengths</h3>
+                    <ul>
+                        <li>Strong position in Truck Nylon segment (10.73% market share)</li>
+                        <li>Dominant in Light Truck Nylon (10.61% market share)</li>
+                        <li>High-value segments: Premium pricing in OTR Radials</li>
+                        <li>Established presence in 2-Wheeler segment</li>
+                        <li>Strong pricing power in commercial vehicle segments</li>
+                    </ul>
+                </div>
+                <div class="insight-section">
+                    <h3>Market Opportunities</h3>
+                    <ul>
+                        <li>Passenger Car segment: Huge volume (5.5M pieces) with low MRF share</li>
+                        <li>Truck Radial: Large market value (₦488B) with minimal MRF presence</li>
+                        <li>Light Truck Radial: Growing segment with expansion potential</li>
+                        <li>2-Wheeler: Largest volume segment for potential growth</li>
+                        <li>Agriculture segment showing stable growth potential</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            {
+                segment: 'Truck Nylon',
+                mrfQty: 60.6,
+                mrfValue: 17.6,
+                totalValue: 17.6,
+                mrfMarketShare: 10.73,
+                mrfPrice: 220000,
+                otherQty: 0
+            },
+            {
+                segment: 'Light Truck Nylon',
+                mrfQty: 66.0,
+                mrfValue: 8.3,
+                totalValue: 8.3,
+                mrfMarketShare: 10.61,
+                mrfPrice: 95000,
+                otherQty: 0
+            },
+            {
+                segment: 'Truck Radial',
+                mrfQty: 18.0,
+                mrfValue: 6.7,
+                totalValue: 488.3,
+                mrfMarketShare: 0.13,
+                mrfPrice: 300000,
+                otherQty: 1482
+            },
+            {
+                segment: 'Light Truck Radial',
+                mrfQty: 15.0,
+                mrfValue: 1.4,
+                totalValue: 83.6,
+                mrfMarketShare: 0.21,
+                mrfPrice: 45000,
+                otherQty: 1265.6
+            },
+            {
+                segment: 'Passenger Car',
+                mrfQty: 24.0,
+                mrfValue: 2.2,
+                totalValue: 387.2,
+                mrfMarketShare: 0.02,
+                mrfPrice: 40000,
+                otherQty: 5500
+            },
+            {
+                segment: 'Agriculture',
+                mrfQty: 15.0,
+                mrfValue: 4.5,
+                totalValue: 12.8,
+                mrfMarketShare: 1.11,
+                mrfPrice: 300000,
+                otherQty: 30
+            },
+            {
+                segment: 'OTR Nylons',
+                mrfQty: 3.0,
+                mrfValue: 1.8,
+                totalValue: 14.4,
+                mrfMarketShare: 0.19,
+                mrfPrice: 600000,
+                otherQty: 18
+            },
+            {
+                segment: 'OTR Radials',
+                mrfQty: 6.0,
+                mrfValue: 14.4,
+                totalValue: 62.4,
+                mrfMarketShare: 0.00,
+                mrfPrice: 2400000,
+                otherQty: 30
+            },
+            {
+                segment: 'Solids',
+                mrfQty: 15.0,
+                mrfValue: 1.4,
+                totalValue: 4.5,
+                mrfMarketShare: 0.80,
+                mrfPrice: 90000,
+                otherQty: 35
+            },
+            {
+                segment: '2-Wheeler',
+                mrfQty: 180.0,
+                mrfValue: 3.6,
+                totalValue: 42.6,
+                mrfMarketShare: 2.91,
+                mrfPrice: 15000,
+                otherQty: 3000
+            },
+            {
+                segment: '3-Wheeler',
+                mrfQty: 130.0,
+                mrfValue: 2.9,
+                totalValue: 19.2,
+                mrfMarketShare: 4.17,
+                mrfPrice: 22000,
+                otherQty: 960
+            }
+        ];
+
+        const colors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+            '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9', '#F8C471'
+        ];
+
+        let charts = {};
+
+        function showChart(chartType) {
+            // Hide all chart sections
+            document.querySelectorAll('.chart-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected chart section
+            document.getElementById(chartType + '-chart').classList.remove('hidden');
+            
+            // Update button states
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Initialize chart if needed
+            if (!charts[chartType]) {
+                initChart(chartType);
+            }
+        }
+
+        function initChart(chartType) {
+            switch(chartType) {
+                case 'bubble':
+                    createBubbleChart();
+                    break;
+                case 'market-share':
+                    createPieChart();
+                    createBarChart();
+                    break;
+                case 'volume':
+                    createVolumeChart();
+                    break;
+                case 'price':
+                    createPriceChart();
+                    break;
+            }
+        }
+
+        function createBubbleChart() {
+            const ctx = document.getElementById('bubbleCanvas').getContext('2d');
+            
+            const bubbleData = data.map((item, index) => ({
+                x: item.mrfMarketShare,
+                y: item.totalValue,
+                r: Math.sqrt(item.mrfQty) * 2,
+                backgroundColor: colors[index],
+                borderColor: colors[index],
+                label: item.segment
+            }));
+
+            charts.bubble = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Market Position',
+                        data: bubbleData,
+                        backgroundColor: bubbleData.map(d => d.backgroundColor + '80'),
+                        borderColor: bubbleData.map(d => d.borderColor),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].raw.label;
+                                },
+                                label: function(context) {
+                                    return [
+                                        `MRF Market Share: ${context.parsed.x.toFixed(2)}%`,
+                                        `Total Market Value: ₦${context.parsed.y.toFixed(1)}B`,
+                                        `MRF Quantity: ${data[context.dataIndex].mrfQty}K pieces`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'MRF Market Share (%)'
+                            },
+                            min: 0,
+                            max: 12
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Total Market Value (₦B)'
+                            },
+                            min: 0
+                        }
+                    }
+                }
+            });
+        }
+
+        function createPieChart() {
+            const ctx = document.getElementById('pieCanvas').getContext('2d');
+            
+            charts.pie = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: data.map(item => item.segment),
+                    datasets: [{
+                        data: data.map(item => item.totalValue),
+                        backgroundColor: colors,
+                        borderColor: colors.map(color => color + 'CC'),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ₦${context.parsed.toFixed(1)}B`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createBarChart() {
+            const ctx = document.getElementById('barCanvas').getContext('2d');
+            
+            charts.bar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => item.segment),
+                    datasets: [{
+                        label: 'MRF Market Share (%)',
+                        data: data.map(item => item.mrfMarketShare),
+                        backgroundColor: colors.map(color => color + '80'),
+                        borderColor: colors,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Market Share (%)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createVolumeChart() {
+            const ctx = document.getElementById('volumeCanvas').getContext('2d');
+            
+            charts.volume = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => item.segment),
+                    datasets: [
+                        {
+                            label: 'MRF (K pieces)',
+                            data: data.map(item => item.mrfQty),
+                            backgroundColor: '#667eea80',
+                            borderColor: '#667eea',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Others (K pieces)',
+                            data: data.map(item => item.otherQty),
+                            backgroundColor: '#764ba280',
+                            borderColor: '#764ba2',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Quantity (K pieces)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createPriceChart() {
+            const ctx = document.getElementById('priceCanvas').getContext('2d');
+            
+            charts.price = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => item.segment),
+                    datasets: [{
+                        label: 'Average Price (₦)',
+                        data: data.map(item => item.mrfPrice),
+                        backgroundColor: colors.map(color => color + '80'),
+                        borderColor: colors,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `₦${context.parsed.y.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Price (₦)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '₦' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize with bubble chart
+        document.addEventListener('DOMContentLoaded', function() {
+            initChart('bubble');
+        });
+    </script>
+</body>
+</html>
