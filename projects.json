@@ -46,11 +46,17 @@
     "filename": "xof_ngn_chart (1).html",
     "icon": "💱",
     "description": "Financial market analysis and currency exchange trends between West African CFA Franc (XOF) and Nigerian Naira (NGN)."
-  }
-{
+  },
+  {
+    "title": "Nigeria's Middle Class Crisis Report",
+    "filename": "nigeria-middle-class-report.html",
+    "icon": "📉",
+    "description": "Comprehensive analysis of Nigeria's shrinking middle class, examining inflation impact, currency devaluation, and household budget erosion with interactive charts and economic projections."
+  },
+  {
     "title": "How Nigerians Make a Living",
     "filename": "nigerian-livelihoods-report.html",
     "icon": "💼",
     "description": "In-depth research report on Nigerian employment patterns, income distribution across sectors, informal economy dynamics, and strategies for economic survival with data visualizations."
-}
+  }
 ]
