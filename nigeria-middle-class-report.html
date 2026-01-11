@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigeria's Middle Class Crisis | Economic Research Report 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --ink: #1a1a1a;
+            --paper: #f8f5f0;
+            --accent: #c41e3a;
+            --accent-dark: #8b1428;
+            --gold: #b8860b;
+            --muted: #6b6b6b;
+            --divider: #d4c5b0;
+            --highlight: #fff3cd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+
+        /* Header */
+        .masthead {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .masthead-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .publication-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .date-line {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--ink) 0%, #2d2d2d 100%);
+            color: var(--paper);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .report-category {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 3rem;
+            margin: -6rem 0 4rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .executive-summary h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .summary-item {
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid var(--accent);
+        }
+
+        .summary-stat {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--ink);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* Pull Quote */
+        .pull-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--accent-dark);
+            padding: 2rem 3rem;
+            margin: 3rem 0;
+            border-left: 4px solid var(--accent);
+            background: linear-gradient(90deg, rgba(196, 30, 58, 0.05) 0%, transparent 100%);
+        }
+
+        .pull-quote cite {
+            display: block;
+            font-size: 0.9rem;
+            font-style: normal;
+            margin-top: 1rem;
+            color: var(--muted);
+        }
+
+        /* Charts Container */
+        .chart-section {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--divider);
+        }
+
+        .chart-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .data-table th {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 1rem;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .data-table tr:hover {
+            background: rgba(196, 30, 58, 0.03);
+        }
+
+        .data-table .highlight-cell {
+            background: var(--highlight);
+            font-weight: 600;
+        }
+
+        .negative {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .positive {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border: 1px solid var(--divider);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        .info-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--divider);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translateX(-5px);
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.95rem;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Callout Box */
+        .callout {
+            background: var(--highlight);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .callout-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .report-footer {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section p, .footer-section li {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .disclaimer {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+            
+            .executive-summary {
+                margin: -3rem 0 2rem 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-wrapper {
+                padding: 2rem 1.5rem;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pull-quote {
+                padding: 1.5rem;
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .masthead, .hero {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .chart-section {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Masthead -->
+    <header class="masthead">
+        <div class="masthead-inner">
+            <div class="publication-name">Economic Research Report</div>
+            <div class="date-line">December 2025</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <span class="report-category">Economic Analysis</span>
+            <h1>Nigeria's Middle Class: <span>Slipping Into Poverty</span></h1>
+            <p class="hero-subtitle">A comprehensive analysis of the economic pressures eroding Africa's largest consumer base and the systemic factors driving downward mobility.</p>
+            <div class="hero-meta">
+                <span>Source: Vanguard Nigeria</span>
+                <span>Published: December 2025</span>
+                <span>Reading Time: 12 min</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Executive Summary -->
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-stat">133M</div>
+                    <div class="summary-label">Nigerians now living in multidimensional poverty (NBS 2024)</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-stat">34.2%</div>
+                    <div class="summary-label">Headline inflation rate eroding purchasing power</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-stat">₦1,600+</div>
+                    <div class="summary-label">Naira exchange rate against US dollar (from ₦460 in 2023)</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-stat">40%</div>
+                    <div class="summary-label">Estimated middle class contraction since 2020</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Overview -->
+        <section>
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2>The Erosion of Nigeria's Middle Class</h2>
+            </div>
+            
+            <p>Nigeria's middle class—once celebrated as the engine of Africa's largest economy—is experiencing an unprecedented squeeze. What was historically defined as households earning between $2 and $20 per day has seen its boundaries blur as currency devaluation, inflation, and policy reforms converge to create a perfect economic storm.</p>
+
+            <p>The African Development Bank previously estimated Nigeria's middle class at approximately 23% of the population. Current assessments suggest this figure has contracted significantly, with millions of previously middle-income households now struggling to meet basic needs. The phenomenon represents not just individual hardship but a fundamental restructuring of Nigeria's economic pyramid.</p>
+
+            <div class="pull-quote">
+                "The middle class is not just shrinking—it is being systematically dismantled by a combination of policy shock, currency collapse, and relentless inflation."
+                <cite>— Economic Policy Analyst</cite>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-title">Middle Class Population Trend</div>
+                <div class="chart-subtitle">Estimated percentage of population classified as middle class (2015-2025)</div>
+                <div class="chart-container">
+                    <canvas id="middleClassChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Key Drivers -->
+        <section>
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2>Key Drivers of Downward Mobility</h2>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-card-icon">📉</div>
+                    <h4>Currency Devaluation</h4>
+                    <p>The Naira has lost over 70% of its value since exchange rate unification in June 2023, decimating import-dependent purchasing power and savings.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">⛽</div>
+                    <h4>Fuel Subsidy Removal</h4>
+                    <p>Petrol prices surged from ₦185 to over ₦600 per litre, creating cascading effects across transportation, food, and services.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">🛒</div>
+                    <h4>Food Inflation</h4>
+                    <p>Food inflation exceeds 40%, with staples like rice, bread, and cooking oil becoming luxury items for many households.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">🏠</div>
+                    <h4>Housing Costs</h4>
+                    <p>Urban rent increases of 50-100% in major cities are displacing families from established neighborhoods.</p>
+                </div>
+            </div>
+
+            <h3>The Inflation Crisis</h3>
+            <p>Inflation has emerged as the primary mechanism through which middle-class wealth is being transferred and destroyed. While nominal wages have remained largely stagnant in the private sector and only moderately adjusted in the public sector, the cost of living has increased exponentially.</p>
+
+            <div class="charts-grid">
+                <div class="chart-section">
+                    <div class="chart-title">Inflation Trajectory</div>
+                    <div class="chart-subtitle">Monthly headline and food inflation rates (%)</div>
+                    <div class="chart-container">
+                        <canvas id="inflationChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-section">
+                    <div class="chart-title">Exchange Rate Collapse</div>
+                    <div class="chart-subtitle">Naira to USD official rate progression</div>
+                    <div class="chart-container">
+                        <canvas id="exchangeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Impact Analysis -->
+        <section>
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2>Household Impact Analysis</h2>
+            </div>
+
+            <p>The lived experience of Nigeria's shrinking middle class is characterized by systematic lifestyle downgrades, deferred dreams, and survival-mode decision making. Families that once budgeted for school fees, healthcare, and occasional luxuries now face impossible choices between feeding their children and keeping them in school.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Expense Category</th>
+                        <th>Jan 2023</th>
+                        <th>Dec 2025</th>
+                        <th>% Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>50kg Bag of Rice</td>
+                        <td>₦35,000</td>
+                        <td>₦95,000</td>
+                        <td class="negative">+171%</td>
+                    </tr>
+                    <tr>
+                        <td>Petrol (per litre)</td>
+                        <td>₦185</td>
+                        <td>₦620</td>
+                        <td class="negative">+235%</td>
+                    </tr>
+                    <tr>
+                        <td>Cooking Gas (12.5kg)</td>
+                        <td>₦10,500</td>
+                        <td>₦18,000</td>
+                        <td class="negative">+71%</td>
+                    </tr>
+                    <tr>
+                        <td>Private School Fees (avg)</td>
+                        <td>₦150,000</td>
+                        <td>₦350,000</td>
+                        <td class="negative">+133%</td>
+                    </tr>
+                    <tr>
+                        <td>Urban Rent (2BR)</td>
+                        <td>₦800,000/yr</td>
+                        <td>₦1,500,000/yr</td>
+                        <td class="negative">+88%</td>
+                    </tr>
+                    <tr>
+                        <td>Minimum Wage</td>
+                        <td>₦30,000</td>
+                        <td>₦70,000</td>
+                        <td class="positive">+133%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout">
+                <div class="callout-title">Key Insight</div>
+                <p style="margin:0;">While the minimum wage increased by 133%, the cost of essential goods and services has increased by 150-235%. This gap represents the real erosion of purchasing power that statistics often fail to capture.</p>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-title">Household Budget Allocation Shift</div>
+                <div class="chart-subtitle">Typical middle-class household spending distribution</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="chart-container">
+                        <canvas id="budget2023Chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="budget2025Chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Timeline -->
+        <section>
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2>Policy Timeline & Economic Shocks</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">May 29, 2023</div>
+                    <div class="timeline-content">
+                        <h4>Fuel Subsidy Removal Announced</h4>
+                        <p>President Bola Tinubu declares "fuel subsidy is gone," triggering immediate price increases from ₦185 to ₦500+ per litre.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">June 14, 2023</div>
+                    <div class="timeline-content">
+                        <h4>Exchange Rate Unification</h4>
+                        <p>CBN collapses multiple exchange rate windows, allowing market-determined rates. Naira immediately depreciates from ₦460 to ₦750.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">October 2023</div>
+                    <div class="timeline-content">
+                        <h4>Inflation Crosses 27%</h4>
+                        <p>Headline inflation reaches 27.33%, the highest in 18 years, driven by food and energy costs.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">February 2024</div>
+                    <div class="timeline-content">
+                        <h4>Naira Hits ₦1,500</h4>
+                        <p>Currency depreciation accelerates as foreign reserves dwindle and speculation intensifies.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">July 2024</div>
+                    <div class="timeline-content">
+                        <h4>New Minimum Wage</h4>
+                        <p>Government approves ₦70,000 minimum wage, representing 133% increase but lagging inflation.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">December 2025</div>
+                    <div class="timeline-content">
+                        <h4>Poverty Statistics Released</h4>
+                        <p>NBS confirms 133 million Nigerians live in multidimensional poverty, with middle class shrinkage evident.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Regional Analysis -->
+        <section>
+            <div class="section-header">
+                <span class="section-number">05</span>
+                <h2>Regional Disparities</h2>
+            </div>
+
+            <p>The impact of middle-class erosion varies significantly across Nigeria's geopolitical zones. While urban centers in the South-West have seen concentrated middle-class activity, the North has historically had lower middle-class penetration. Current pressures are exacerbating these disparities.</p>
+
+            <div class="chart-section">
+                <div class="chart-title">Poverty Rate by Geopolitical Zone</div>
+                <div class="chart-subtitle">Percentage of population living below poverty line</div>
+                <div class="chart-container">
+                    <canvas id="regionalChart"></canvas>
+                </div>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-card-icon">🏙️</div>
+                    <h4>Lagos State</h4>
+                    <p>Despite being Nigeria's economic hub, cost of living pressures have pushed middle-class families to satellite towns and neighboring states.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">🌾</div>
+                    <h4>Northern States</h4>
+                    <p>Agricultural disruptions from insecurity compound economic pressures, with food-producing regions paradoxically experiencing severe food inflation.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">🛢️</div>
+                    <h4>Niger Delta</h4>
+                    <p>Oil-dependent economies face double disruption from production decline and the ironic rise in fuel costs despite local production.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Outlook -->
+        <section>
+            <div class="section-header">
+                <span class="section-number">06</span>
+                <h2>Economic Outlook & Recommendations</h2>
+            </div>
+
+            <p>The path to middle-class recovery requires coordinated policy interventions across monetary, fiscal, and structural dimensions. Without deliberate action, Nigeria risks a generational setback in human capital development and consumer market growth.</p>
+
+            <h3>Short-Term Priorities</h3>
+            <ul style="margin-bottom: 2rem; padding-left: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;">Targeted social protection programs for vulnerable middle-class households</li>
+                <li style="margin-bottom: 0.5rem;">Exchange rate stabilization through improved dollar liquidity</li>
+                <li style="margin-bottom: 0.5rem;">Food security interventions to moderate staple prices</li>
+                <li style="margin-bottom: 0.5rem;">Temporary tax relief for essential goods and services</li>
+            </ul>
+
+            <h3>Medium-Term Structural Reforms</h3>
+            <ul style="margin-bottom: 2rem; padding-left: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;">Local refining capacity expansion to reduce fuel import dependence</li>
+                <li style="margin-bottom: 0.5rem;">Agricultural value chain investment for food price stability</li>
+                <li style="margin-bottom: 0.5rem;">Power sector reforms to reduce business operating costs</li>
+                <li style="margin-bottom: 0.5rem;">Housing finance reforms to improve affordability</li>
+            </ul>
+
+            <div class="chart-section">
+                <div class="chart-title">Projected Inflation Scenarios</div>
+                <div class="chart-subtitle">Forecast under different policy intervention scenarios</div>
+                <div class="chart-container">
+                    <canvas id="projectionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="callout">
+                <div class="callout-title">Conclusion</div>
+                <p style="margin:0;">Nigeria's middle class represents more than an economic category—it embodies aspirations, social mobility, and the promise of development. Its preservation requires acknowledging the current crisis and implementing evidence-based policies that prioritize household resilience over macroeconomic abstractions. The window for effective intervention is narrowing.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="report-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Data Sources</h4>
+                <ul>
+                    <li>National Bureau of Statistics (NBS)</li>
+                    <li>Central Bank of Nigeria (CBN)</li>
+                    <li>African Development Bank</li>
+                    <li>World Bank Nigeria</li>
+                    <li>Vanguard Nigeria</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Methodology</h4>
+                <p>This report synthesizes publicly available data on inflation, exchange rates, poverty metrics, and household surveys. Middle class definitions follow the African Development Bank classification of $2-$20 daily income.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Related Topics</h4>
+                <ul>
+                    <li>Naira Devaluation Impact</li>
+                    <li>Fuel Subsidy Economics</li>
+                    <li>Nigerian Consumer Markets</li>
+                    <li>Poverty Alleviation Policy</li>
+                </ul>
+            </div>
+        </div>
+        <div class="disclaimer">
+            Research compiled for informational purposes. December 2025. Original source: Vanguard Nigeria.
+        </div>
+    </footer>
+
+    <script>
+        // Chart.js configuration
+        Chart.defaults.font.family = "'Source Serif 4', Georgia, serif";
+        Chart.defaults.color = '#1a1a1a';
+
+        // Color palette
+        const colors = {
+            accent: '#c41e3a',
+            accentLight: 'rgba(196, 30, 58, 0.2)',
+            gold: '#b8860b',
+            ink: '#1a1a1a',
+            muted: '#6b6b6b',
+            success: '#2e7d32'
+        };
+
+        // 1. Middle Class Population Trend
+        new Chart(document.getElementById('middleClassChart'), {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Middle Class (%)',
+                    data: [23, 22.5, 22, 21, 20.5, 18, 17, 16, 14, 12, 10],
+                    borderColor: colors.accent,
+                    backgroundColor: colors.accentLight,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: colors.accent,
+                    pointRadius: 5,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 30,
+                        title: { display: true, text: 'Population (%)' }
+                    }
+                }
+            }
+        });
+
+        // 2. Inflation Chart
+        new Chart(document.getElementById('inflationChart'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov', 'Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
+                datasets: [{
+                    label: 'Headline Inflation',
+                    data: [21.8, 22.0, 22.4, 24.1, 26.7, 28.2, 29.9, 33.2, 33.9, 34.2, 32.7, 34.2],
+                    borderColor: colors.accent,
+                    backgroundColor: 'transparent',
+                    tension: 0.4,
+                    pointRadius: 3
+                }, {
+                    label: 'Food Inflation',
+                    data: [24.3, 24.5, 24.8, 26.9, 30.6, 32.8, 35.4, 40.5, 40.9, 41.8, 39.2, 40.8],
+                    borderColor: colors.gold,
+                    backgroundColor: 'transparent',
+                    tension: 0.4,
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Rate (%)' }
+                    }
+                }
+            }
+        });
+
+        // 3. Exchange Rate Chart
+        new Chart(document.getElementById('exchangeChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Jan 23', 'Jun 23', 'Sep 23', 'Dec 23', 'Mar 24', 'Jun 24', 'Sep 24', 'Dec 24', 'Mar 25', 'Jun 25', 'Sep 25', 'Dec 25'],
+                datasets: [{
+                    label: 'NGN per USD',
+                    data: [460, 750, 780, 900, 1200, 1450, 1500, 1550, 1580, 1600, 1620, 1650],
+                    backgroundColor: colors.accentLight,
+                    borderColor: colors.accent,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Naira per Dollar' }
+                    }
+                }
+            }
+        });
+
+        // 4. Budget 2023 Pie Chart
+        new Chart(document.getElementById('budget2023Chart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Food', 'Housing', 'Transport', 'Education', 'Healthcare', 'Savings', 'Other'],
+                datasets: [{
+                    data: [25, 20, 12, 15, 8, 10, 10],
+                    backgroundColor: [
+                        '#c41e3a', '#b8860b', '#1a1a1a', '#6b6b6b', '#2e7d32', '#4a90d9', '#d4c5b0'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '2023 Budget'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 8, font: { size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // 5. Budget 2025 Pie Chart
+        new Chart(document.getElementById('budget2025Chart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Food', 'Housing', 'Transport', 'Education', 'Healthcare', 'Savings', 'Other'],
+                datasets: [{
+                    data: [45, 25, 15, 8, 4, 1, 2],
+                    backgroundColor: [
+                        '#c41e3a', '#b8860b', '#1a1a1a', '#6b6b6b', '#2e7d32', '#4a90d9', '#d4c5b0'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '2025 Budget'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 8, font: { size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // 6. Regional Poverty Chart
+        new Chart(document.getElementById('regionalChart'), {
+            type: 'bar',
+            data: {
+                labels: ['North-West', 'North-East', 'North-Central', 'South-West', 'South-East', 'South-South'],
+                datasets: [{
+                    label: 'Poverty Rate (%)',
+                    data: [75.4, 72.1, 52.3, 28.6, 41.2, 38.9],
+                    backgroundColor: [
+                        'rgba(196, 30, 58, 0.9)',
+                        'rgba(196, 30, 58, 0.8)',
+                        'rgba(196, 30, 58, 0.6)',
+                        'rgba(46, 125, 50, 0.7)',
+                        'rgba(196, 30, 58, 0.5)',
+                        'rgba(196, 30, 58, 0.45)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        max: 100,
+                        title: { display: true, text: 'Poverty Rate (%)' }
+                    }
+                }
+            }
+        });
+
+        // 7. Projection Chart
+        new Chart(document.getElementById('projectionChart'), {
+            type: 'line',
+            data: {
+                labels: ['Q1 26', 'Q2 26', 'Q3 26', 'Q4 26', 'Q1 27', 'Q2 27', 'Q3 27', 'Q4 27'],
+                datasets: [{
+                    label: 'Status Quo',
+                    data: [33, 32, 31, 30, 29, 28, 27, 26],
+                    borderColor: colors.accent,
+                    borderDash: [5, 5],
+                    tension: 0.4,
+                    pointRadius: 3
+                }, {
+                    label: 'Moderate Reform',
+                    data: [33, 30, 27, 24, 21, 19, 17, 15],
+                    borderColor: colors.gold,
+                    tension: 0.4,
+                    pointRadius: 3
+                }, {
+                    label: 'Aggressive Reform',
+                    data: [33, 28, 23, 19, 16, 14, 12, 10],
+                    borderColor: colors.success,
+                    tension: 0.4,
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Inflation Rate (%)' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
