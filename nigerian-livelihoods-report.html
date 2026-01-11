@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Nigerians Make a Living | Economic Research Report 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --deep-navy: #0a1628;
+            --slate: #1e293b;
+            --warm-white: #faf9f7;
+            --cream: #f5f3ef;
+            --terracotta: #c45d3a;
+            --terracotta-light: rgba(196, 93, 58, 0.15);
+            --gold: #d4a03c;
+            --teal: #2d8a7e;
+            --muted: #64748b;
+            --border: #e2e0dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--warm-white);
+            color: var(--deep-navy);
+            line-height: 1.75;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        /* Masthead */
+        .masthead {
+            background: var(--deep-navy);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .masthead-brand {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--warm-white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .masthead-date {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--muted);
+            font-size: 0.7rem;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(160deg, var(--deep-navy) 0%, var(--slate) 100%);
+            color: var(--warm-white);
+            padding: 5rem 2rem 8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(196, 93, 58, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--warm-white) 0%, transparent 100%);
+        }
+
+        .hero-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .report-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 160, 60, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.4rem 1rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--terracotta);
+            font-style: italic;
+        }
+
+        .hero-lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Key Findings Panel */
+        .key-findings {
+            background: var(--deep-navy);
+            color: var(--warm-white);
+            margin: -4rem 0 4rem;
+            padding: 3rem;
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 3rem;
+        }
+
+        .key-findings-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding-top: 0.5rem;
+            border-top: 3px solid var(--terracotta);
+        }
+
+        .findings-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .finding-item {
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .finding-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            line-height: 1;
+        }
+
+        .finding-text {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 5rem;
+        }
+
+        .section-intro {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--muted);
+            padding-top: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Featured Quote */
+        .featured-quote {
+            background: var(--cream);
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .featured-quote::before {
+            content: '"';
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 8rem;
+            color: var(--terracotta);
+            opacity: 0.2;
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            line-height: 1;
+        }
+
+        .featured-quote blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-quote cite {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-style: normal;
+            color: var(--muted);
+            margin-top: 1rem;
+        }
+
+        /* Chart Containers */
+        .chart-panel {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chart-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .chart-source {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .charts-duo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Data Table */
+        .data-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table thead {
+            background: var(--deep-navy);
+            color: var(--warm-white);
+        }
+
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--cream);
+        }
+
+        .data-table .category-cell {
+            font-weight: 500;
+        }
+
+        .data-table .range-cell {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .data-table .highlight-row {
+            background: var(--terracotta-light);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .tag-high { background: rgba(45, 138, 126, 0.15); color: var(--teal); }
+        .tag-moderate { background: rgba(212, 160, 60, 0.2); color: #a07d2c; }
+        .tag-low { background: rgba(196, 93, 58, 0.15); color: var(--terracotta); }
+        .tag-variable { background: rgba(100, 116, 139, 0.15); color: var(--muted); }
+
+        /* Insight Cards */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .insight-card {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(10, 22, 40, 0.08);
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--terracotta);
+        }
+
+        .insight-card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .insight-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .insight-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* Case Study */
+        .case-study {
+            background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .case-study-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .case-study h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .case-study p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .case-study .income-breakdown {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .income-item {
+            text-align: center;
+        }
+
+        .income-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--terracotta);
+        }
+
+        .income-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* Strategy Cards */
+        .strategy-list {
+            display: grid;
+            gap: 1rem;
+            margin: 2rem 0;
+            counter-reset: strategy;
+        }
+
+        .strategy-item {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border: 1px solid var(--border);
+            counter-increment: strategy;
+        }
+
+        .strategy-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            opacity: 0.4;
+            line-height: 1;
+        }
+
+        .strategy-content h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .strategy-content p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* Comparison Bars */
+        .comparison-bars {
+            margin: 2rem 0;
+        }
+
+        .comparison-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .comparison-bar {
+            height: 8px;
+            background: var(--cream);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .comparison-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--terracotta) 0%, var(--gold) 100%);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Footer */
+        .report-footer {
+            background: var(--deep-navy);
+            color: var(--warm-white);
+            padding: 4rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--terracotta);
+        }
+
+        .footer-section p,
+        .footer-section li {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-disclaimer {
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            opacity: 0.5;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .key-findings {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-intro {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .charts-duo {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 3rem 1.5rem 6rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .key-findings {
+                padding: 2rem 1.5rem;
+            }
+
+            .main-content {
+                padding: 0 1.5rem;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Masthead -->
+    <header class="masthead">
+        <div class="masthead-brand">Economic Research</div>
+        <div class="masthead-date">December 2025 • The Guardian Nigeria</div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="report-badge">
+                <span>◆</span> In-Depth Analysis
+            </div>
+            <h1>How Does the Average Nigerian <span class="highlight">Make a Living?</span></h1>
+            <p class="hero-lead">An examination of income sources, employment patterns, and economic survival strategies across Africa's most populous nation.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">92.2%</div>
+                    <div class="hero-stat-label">Informal Employment</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">77.5M</div>
+                    <div class="hero-stat-label">Informal Workers</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">₦70K</div>
+                    <div class="hero-stat-label">Minimum Wage</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">129M</div>
+                    <div class="hero-stat-label">Below Poverty Line</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Key Findings -->
+        <div class="key-findings">
+            <div class="key-findings-label">Key Findings</div>
+            <div class="findings-list">
+                <div class="finding-item">
+                    <div class="finding-number">01</div>
+                    <div class="finding-text">Only 12% of Nigeria's workforce is formally employed—88% work in self-employment or informal arrangements without contracts or benefits.</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-number">02</div>
+                    <div class="finding-text">The typical Nigerian doesn't have "a job"—they have multiple income streams that collectively provide survival and sometimes prosperity.</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-number">03</div>
+                    <div class="finding-text">Location and sector create income disparities that dwarf educational differences—a rural teacher earns ₦90,000 while their oil sector classmate earns ₦800,000.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Employment Landscape -->
+        <section>
+            <div class="section-intro">
+                <div>
+                    <div class="section-label">Section 01</div>
+                    <h2 class="section-title">The Employment Landscape</h2>
+                </div>
+                <p class="section-desc">Understanding how Nigeria's 84 million employed persons generate income requires looking beyond traditional employment statistics into the informal economy that powers the nation.</p>
+            </div>
+
+            <p>Nigeria's employment landscape defies conventional economic categorization. According to the National Bureau of Statistics, the formal sector employs only about 12% of the workforce—meaning roughly 88% of Nigerians work for themselves or in informal arrangements without contracts, benefits, or stable salaries.</p>
+
+            <p>This isn't a sign of economic failure but rather a different economic model entirely. The informal economy isn't a sidebar—it is Nigerian employment for the vast majority. It includes the food vendors serving rice and stew from roadside stalls, commercial motorcycle riders clearing ₦3,000 daily, tailors charging ₦5,000 to ₦15,000 per outfit, and mechanics earning ₦200,000 monthly in profit.</p>
+
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <div class="chart-title">Employment Distribution by Type</div>
+                    <div class="chart-source">Source: National Bureau of Statistics</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="employmentTypeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="featured-quote">
+                <blockquote>Asking about average income in Nigeria is rather like asking about average weather. The variation is so vast that the average becomes almost meaningless.</blockquote>
+                <cite>— The Guardian Nigeria Economic Analysis</cite>
+            </div>
+
+            <div class="charts-duo">
+                <div class="chart-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Employment by Sector</div>
+                        <div class="chart-source">% of Total Employment</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sectorChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Formal vs Informal Split</div>
+                        <div class="chart-source">92.2% work informally</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="formalInformalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Income Ranges -->
+        <section>
+            <div class="section-intro">
+                <div>
+                    <div class="section-label">Section 02</div>
+                    <h2 class="section-title">Income Across Sectors</h2>
+                </div>
+                <p class="section-desc">Monthly earnings vary dramatically—from ₦40,000 for smallholder farmers to ₦2,000,000+ for oil and gas professionals—revealing stark inequalities within the Nigerian economy.</p>
+            </div>
+
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Employment Category</th>
+                            <th>Monthly Income (₦)</th>
+                            <th>Annual Income (₦)</th>
+                            <th>Job Security</th>
+                            <th>Benefits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="category-cell">Informal Agriculture (Smallholder)</td>
+                            <td class="range-cell">40,000 – 150,000</td>
+                            <td class="range-cell">480,000 – 1,800,000</td>
+                            <td><span class="tag tag-variable">Seasonal</span></td>
+                            <td>Minimal</td>
+                        </tr>
+                        <tr>
+                            <td class="category-cell">Informal Trading/Services</td>
+                            <td class="range-cell">50,000 – 200,000</td>
+                            <td class="range-cell">600,000 – 2,400,000</td>
+                            <td><span class="tag tag-variable">Variable</span></td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td class="category-cell">Artisan/Skilled Trade</td>
+                            <td class="range-cell">80,000 – 300,000</td>
+                            <td class="range-cell">960,000 – 3,600,000</td>
+                            <td><span class="tag tag-moderate">Moderate</span></td>
+                            <td>Minimal</td>
+                        </tr>
+                        <tr>
+                            <td class="category-cell">Entry-Level Government</td>
+                            <td class="range-cell">70,000 – 150,000</td>
+                            <td class="range-cell">840,000 – 1,800,000</td>
+                            <td><span class="tag tag-high">High</span></td>
+                            <td>Pension, Housing</td>
+                        </tr>
+                        <tr>
+                            <td class="category-cell">Mid-Level Government</td>
+                            <td class="range-cell">200,000 – 500,000</td>
+                            <td class="range-cell">2,400,000 – 6,000,000</td>
+                            <td><span class="tag tag-high">High</span></td>
+                            <td>Full Package</td>
+                        </tr>
+                        <tr>
+                            <td class="category-cell">Entry-Level Private Sector</td>
+                            <td class="range-cell">100,000 – 250,000</td>
+                            <td class="range-cell">1,200,000 – 3,000,000</td>
+                            <td><span class="tag tag-moderate">Moderate</span></td>
+                            <td>Limited</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td class="category-cell">Banking/Telecom Specialist</td>
+                            <td class="range-cell">400,000 – 1,000,000</td>
+                            <td class="range-cell">4,800,000 – 12,000,000</td>
+                            <td><span class="tag tag-moderate">Moderate</span></td>
+                            <td>Comprehensive</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td class="category-cell">Oil & Gas Professional</td>
+                            <td class="range-cell">600,000 – 2,000,000+</td>
+                            <td class="range-cell">7,200,000 – 24,000,000+</td>
+                            <td><span class="tag tag-high">High</span></td>
+                            <td>Full Expatriate-Style</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <div class="chart-title">Monthly Income Comparison by Sector</div>
+                    <div class="chart-source">Upper range of monthly earnings in Naira</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="incomeComparisonChart"></canvas>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-study-label">Case Study</div>
+                <h4>Mrs. Chidinma, Owerri — The Multi-Income Reality</h4>
+                <p>A primary school teacher who represents the typical Nigerian approach to income generation. Her combined earnings of ₦155,000 place her in Nigeria's middle class, but it requires working essentially three jobs simultaneously.</p>
+                <div class="income-breakdown">
+                    <div class="income-item">
+                        <div class="income-value">₦85,000</div>
+                        <div class="income-label">Teaching (Morning)</div>
+                    </div>
+                    <div class="income-item">
+                        <div class="income-value">₦40,000</div>
+                        <div class="income-label">Provision Shop (Afternoon)</div>
+                    </div>
+                    <div class="income-item">
+                        <div class="income-value">₦30,000</div>
+                        <div class="income-label">Instagram Clothing (Weekends)</div>
+                    </div>
+                    <div class="income-item" style="border-left: 2px solid var(--terracotta); padding-left: 1rem;">
+                        <div class="income-value">₦155,000</div>
+                        <div class="income-label">Total Monthly Income</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Corporate Spotlight -->
+        <section>
+            <div class="section-intro">
+                <div>
+                    <div class="section-label">Section 03</div>
+                    <h2 class="section-title">Corporate Nigeria: The MTN Effect</h2>
+                </div>
+                <p class="section-desc">MTN Nigeria represents the upper tier of private sector compensation—but their 1,809 employees are a tiny fraction of Nigeria's 220 million population.</p>
+            </div>
+
+            <p>MTN Nigeria, the country's largest mobile telecommunications operator, illustrates the stark divide in Nigerian corporate compensation. Recent data shows that 84% of MTN's employees earn over ₦1 million monthly, whilst even the lowest-paid staff member averages ₦458,333 monthly—approximately 15 times the national minimum wage.</p>
+
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <div class="insight-card-icon">📱</div>
+                    <h4>Graduate Programme</h4>
+                    <p>Entry-level staff earn ₦120,000 – ₦180,000 monthly during training, rising to ₦220,000 – ₦300,000 once confirmed.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">⚙️</div>
+                    <h4>Specialist Roles</h4>
+                    <p>Technical specialists collect ₦390,000+ monthly (₦4.6 million annually) for engineering and network roles.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">📊</div>
+                    <h4>Management</h4>
+                    <p>Managers earn approximately ₦775,000 monthly (₦9.3 million annually) with comprehensive benefits.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">📈</div>
+                    <h4>Wage Bill Growth</h4>
+                    <p>MTN's total wage bill surged 59.5% in 2024, rising from ₦42.7 billion to ₦71.7 billion.</p>
+                </div>
+            </div>
+
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <div class="chart-title">MTN Salary Structure vs National Benchmarks</div>
+                    <div class="chart-source">Monthly earnings in Naira (000s)</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="mtnComparisonChart"></canvas>
+                </div>
+            </div>
+
+            <h3>The Broader Corporate Landscape</h3>
+            <p>While MTN sets the high-water mark, other major corporations also offer competitive compensation relative to the informal sector:</p>
+
+            <div class="comparison-bars">
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Oil & Gas (Entry)</span>
+                        <span>₦600,000 - ₦800,000</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Banking (Mid-Level)</span>
+                        <span>₦400,000 - ₦600,000</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Telecoms (Specialist)</span>
+                        <span>₦300,000 - ₦500,000</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 55%;"></div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Manufacturing (Entry)</span>
+                        <span>₦150,000 - ₦250,000</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 30%;"></div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Civil Service (Entry)</span>
+                        <span>₦70,000 - ₦150,000</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 18%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Living Wage -->
+        <section>
+            <div class="section-intro">
+                <div>
+                    <div class="section-label">Section 04</div>
+                    <h2 class="section-title">What Constitutes a Living Wage?</h2>
+                </div>
+                <p class="section-desc">The concept of a living wage varies dramatically between Lagos and Sokoto, making national averages nearly meaningless for practical planning.</p>
+            </div>
+
+            <p>Financial analysts suggest ₦200,000 to ₦300,000 monthly represents a genuine living wage for a small family (two adults, two children) in urban Nigeria. This provides basic housing, adequate nutrition, public school education, occasional healthcare, and modest savings. In Lagos specifically, ₦350,000 to ₦500,000 monthly provides similar purchasing power.</p>
+
+            <div class="charts-duo">
+                <div class="chart-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Monthly Cost Breakdown</div>
+                        <div class="chart-source">Small family in urban Nigeria</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="costBreakdownChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-panel">
+                    <div class="chart-header">
+                        <div class="chart-title">Living Wage by City</div>
+                        <div class="chart-source">Monthly requirement in Naira (000s)</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="livingWageCityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="featured-quote">
+                <blockquote>Most Nigerians don't earn a living wage by international standards. They earn a surviving wage, supplemented by family networks and creative income stacking.</blockquote>
+                <cite>— Economic Analysis</cite>
+            </div>
+
+            <h3>Survival Strategies</h3>
+            <p>Millions survive on less than the living wage through remarkable resourcefulness:</p>
+
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <div class="insight-card-icon">🏠</div>
+                    <h4>Shared Accommodation</h4>
+                    <p>Living with relatives reduces housing costs to ₦10,000-₦20,000 monthly versus ₦50,000-₦100,000 for independent housing.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">🛒</div>
+                    <h4>Wholesale Purchasing</h4>
+                    <p>Buying ingredients in bulk from wholesale markets stretches ₦40,000 further than ₦80,000 spent at retail shops.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">🚶</div>
+                    <h4>Alternative Transport</h4>
+                    <p>Walking long distances or using shared okada instead of taxis dramatically reduces transportation costs.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">🏫</div>
+                    <h4>Public Education</h4>
+                    <p>Government schools charging ₦5,000 yearly versus private schools demanding ₦150,000 per term.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Informal Economy Deep Dive -->
+        <section>
+            <div class="section-intro">
+                <div>
+                    <div class="section-label">Section 05</div>
+                    <h2 class="section-title">The Informal Economy</h2>
+                </div>
+                <p class="section-desc">Understanding why 92.2% of employed Nigerians—77.5 million people—work outside formal structures.</p>
+            </div>
+
+            <p>The informal economy isn't a sidebar in Nigerian employment—it is Nigerian employment for the vast majority. This includes everyone from street hawkers to skilled tradespeople to smallholder farmers. Several factors drive this dominance:</p>
+
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <div class="chart-title">Why Informal Work Dominates</div>
+                    <div class="chart-source">Key driving factors</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="informalDriversChart"></canvas>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-study-label">The Graduate Gap</div>
+                <h4>600,000 Graduates vs 50,000-100,000 Jobs</h4>
+                <p>Nigeria produces roughly 600,000 university graduates yearly whilst the formal sector creates perhaps 50,000 to 100,000 new graduate-level positions. The mathematics simply doesn't work. Most graduates eventually abandon formal employment dreams and create their own opportunities in the informal sector.</p>
+            </div>
+
+            <h3>Informal Economy Success Stories</h3>
+            <p>The informal economy includes substantial sophistication. These aren't desperate survivalists—they're successful entrepreneurs choosing informal work over formal employment:</p>
+
+            <div class="comparison-bars">
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Commercial Transport Operator</span>
+                        <span>₦400,000/month profit</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Skilled Welder</span>
+                        <span>₦300,000/month</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Phone Repair Technician</span>
+                        <span>₦250,000/month</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 50%;"></div>
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">
+                        <span>Market Trader (Successful)</span>
+                        <span>₦800,000/month profit</span>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Informal Work Risks</h3>
+            <p>However, informal work carries significant risks that formal employment protections would address:</p>
+            
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <div class="insight-card-icon">⚠️</div>
+                    <h4>No Protection</h4>
+                    <p>You can lose everything to thieves, fires, or economic downturns with no insurance or compensation.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">🏥</div>
+                    <h4>No Health Insurance</h4>
+                    <p>Medical emergencies can bankrupt families overnight without employer-provided coverage.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-card-icon">👴</div>
+                    <h4>No Pension</h4>
+                    <p>Elderly poverty looms for workers without formal pension contributions throughout their careers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Strategies -->
+        <section>
+            <div class="section-intro">
+                <div>
+                    <div class="section-label">Section 06</div>
+                    <h2 class="section-title">Strategies for Improvement</h2>
+                </div>
+                <p class="section-desc">Evidence-based approaches that consistently help Nigerians improve their income regardless of starting point.</p>
+            </div>
+
+            <div class="strategy-list">
+                <div class="strategy-item">
+                    <div class="strategy-number">01</div>
+                    <div class="strategy-content">
+                        <h4>Develop Multiple Income Streams</h4>
+                        <p>The Nigerians thriving financially rarely depend on one salary or business. A civil servant might tutor students for ₦40,000 monthly extra. A trader might add complementary product lines increasing profits by ₦60,000 monthly.</p>
+                    </div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-number">02</div>
+                    <div class="strategy-content">
+                        <h4>Acquire High-Demand Skills</h4>
+                        <p>Technology skills (web development, digital marketing, data analysis) and professional certifications (ICAN, ACCA, PMP, CISCO) dramatically increase earning potential. Invest ₦30,000-₦200,000 in training that opens ₦100,000-₦500,000 monthly opportunities.</p>
+                    </div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-number">03</div>
+                    <div class="strategy-content">
+                        <h4>Network Strategically</h4>
+                        <p>Most good opportunities in Nigeria come through personal connections rather than public advertisements. A friend's referral bypasses thousands of applicants competing for advertised positions.</p>
+                    </div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-number">04</div>
+                    <div class="strategy-content">
+                        <h4>Consider Strategic Relocation</h4>
+                        <p>Lagos, Abuja, and Port Harcourt offer income opportunities unavailable elsewhere. A marketing manager in Lagos earns ₦600,000 monthly whilst the identical role in Sokoto pays ₦200,000.</p>
+                    </div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-number">05</div>
+                    <div class="strategy-content">
+                        <h4>Master Financial Literacy</h4>
+                        <p>Save at least 10-20% of earnings, even if only ₦8,000-₦16,000 from ₦80,000 monthly income. Build an emergency fund covering 3-6 months' expenses. Invest surplus in mutual funds or businesses rather than leaving money idle.</p>
+                    </div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-number">06</div>
+                    <div class="strategy-content">
+                        <h4>Start Small, Scale Gradually</h4>
+                        <p>Begin with ₦20,000 buying and reselling online. Start with ₦50,000 purchasing ingredients for a baking business. Many successful entrepreneurs began trading recharge cards for ₦10,000 and built million-naira businesses.</p>
+                    </div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-number">07</div>
+                    <div class="strategy-content">
+                        <h4>Protect Your Income</h4>
+                        <p>Basic health insurance costs ₦30,000-₦60,000 yearly but prevents catastrophic expenses. Allocate 3-5% of annual income toward appropriate insurance coverage.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Conclusion -->
+        <section>
+            <div class="section-intro">
+                <div>
+                    <div class="section-label">Section 07</div>
+                    <h2 class="section-title">Conclusion</h2>
+                </div>
+                <p class="section-desc">Nigerian survival and prosperity comes through channels that often surprise international observers.</p>
+            </div>
+
+            <p>How does the average person make a living in Nigeria? Through remarkable combinations of formal and informal work, individual effort and family support, creative entrepreneurship and patient persistence that would exhaust people accustomed to stable employment in developed economies.</p>
+
+            <p>The typical Nigerian earns income from multiple sources simultaneously. They might hold a government job paying ₦120,000 monthly whilst running a small business generating ₦80,000 monthly. They might farm during rainy season whilst trading goods during dry season. They might work formal employment during the week whilst providing services at weekends.</p>
+
+            <div class="featured-quote">
+                <blockquote>Nigerians make a living the same way they speak—in multiple languages, switching between them as circumstances require, communicating effectively despite complexity that confuses outside observers.</blockquote>
+                <cite>— The Guardian Nigeria</cite>
+            </div>
+
+            <div class="chart-panel">
+                <div class="chart-header">
+                    <div class="chart-title">Summary: Nigerian Employment Reality</div>
+                    <div class="chart-source">Key metrics at a glance</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="summaryChart"></canvas>
+                </div>
+            </div>
+
+            <p>Nigeria's employment landscape reflects a country where formal institutions serve minorities whilst informal systems serve majorities. Where official statistics capture fragments whilst missing the full economic picture. Where survival requires more creativity, more flexibility, and more hustle than outsiders typically imagine.</p>
+
+            <p>If you're planning to work in Nigeria or trying to understand Nigerian colleagues, employees, or business partners, remember this: income rarely equals what appears on formal documents. Total household earnings combine multiple sources across multiple family members in arrangements that shift monthly. What looks like underemployment to outsiders represents creative income management to Nigerians. Respect that creativity—it's what makes Nigerian economy function despite challenges that would collapse systems built on formal employment alone.</p>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="report-footer">
+        <div class="footer-inner">
+            <div class="footer-section">
+                <h4>Data Sources</h4>
+                <ul>
+                    <li>National Bureau of Statistics (NBS)</li>
+                    <li>World Bank Nigeria</li>
+                    <li>Federal Ministry of Labour</li>
+                    <li>The Guardian Nigeria</li>
+                    <li>African Development Bank</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Methodology</h4>
+                <p>This report synthesizes publicly available data on employment patterns, income distributions, and economic indicators. Middle class and poverty definitions follow World Bank and African Development Bank classifications.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Related Topics</h4>
+                <ul>
+                    <li>Nigerian Middle Class Trends</li>
+                    <li>Informal Economy Dynamics</li>
+                    <li>Youth Unemployment</li>
+                    <li>Skills Development Policy</li>
+                    <li>Minimum Wage Implementation</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-disclaimer">
+            Research report compiled for informational purposes • December 2025 • Original source: The Guardian Nigeria
+        </div>
+    </footer>
+
+    <script>
+        // Chart.js defaults
+        Chart.defaults.font.family = "'Outfit', sans-serif";
+        Chart.defaults.color = '#1e293b';
+        Chart.defaults.plugins.legend.labels.usePointStyle = true;
+
+        const colors = {
+            terracotta: '#c45d3a',
+            terracottaLight: 'rgba(196, 93, 58, 0.2)',
+            gold: '#d4a03c',
+            goldLight: 'rgba(212, 160, 60, 0.2)',
+            teal: '#2d8a7e',
+            tealLight: 'rgba(45, 138, 126, 0.2)',
+            navy: '#0a1628',
+            slate: '#1e293b',
+            muted: '#64748b'
+        };
+
+        // 1. Employment Type Distribution
+        new Chart(document.getElementById('employmentTypeChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Self-Employed (Non-Agric)', 'Self-Employed (Agriculture)', 'Wage Employment', 'Contributing Family Workers'],
+                datasets: [{
+                    data: [34, 32, 12, 22],
+                    backgroundColor: [colors.terracotta, colors.gold, colors.teal, colors.muted],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { padding: 20, font: { size: 12 } }
+                    }
+                }
+            }
+        });
+
+        // 2. Employment by Sector
+        new Chart(document.getElementById('sectorChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Agriculture', 'Trade/Commerce', 'Services', 'Manufacturing', 'Construction', 'Finance/Tech'],
+                datasets: [{
+                    data: [35, 25, 20, 10, 6, 4],
+                    backgroundColor: [colors.terracotta, colors.gold, colors.teal, colors.slate, colors.muted, colors.navy],
+                    borderWidth: 0,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { max: 40, title: { display: true, text: 'Percentage (%)' } }
+                }
+            }
+        });
+
+        // 3. Formal vs Informal
+        new Chart(document.getElementById('formalInformalChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Informal Employment', 'Formal Employment'],
+                datasets: [{
+                    data: [92.2, 7.8],
+                    backgroundColor: [colors.terracotta, colors.teal],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // 4. Income Comparison Chart
+        new Chart(document.getElementById('incomeComparisonChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Smallholder Farm', 'Informal Trade', 'Artisan', 'Govt Entry', 'Govt Mid', 'Private Entry', 'Banking', 'Oil & Gas'],
+                datasets: [{
+                    label: 'Monthly Income Upper Range (₦000s)',
+                    data: [150, 200, 300, 150, 500, 250, 1000, 2000],
+                    backgroundColor: [
+                        colors.muted, colors.muted, colors.gold, colors.teal, colors.teal, colors.slate, colors.terracotta, colors.terracotta
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { title: { display: true, text: 'Monthly Income (₦000s)' } }
+                }
+            }
+        });
+
+        // 5. MTN Comparison
+        new Chart(document.getElementById('mtnComparisonChart'), {
+            type: 'bar',
+            data: {
+                labels: ['National Min Wage', 'Civil Service Entry', 'Bank Entry', 'MTN Graduate', 'MTN Specialist', 'MTN Manager', 'MTN Average'],
+                datasets: [{
+                    label: 'Monthly (₦000s)',
+                    data: [70, 120, 250, 180, 390, 775, 458],
+                    backgroundColor: [colors.muted, colors.slate, colors.gold, colors.terracotta, colors.terracotta, colors.terracotta, colors.teal],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { title: { display: true, text: 'Monthly Salary (₦000s)' } }
+                }
+            }
+        });
+
+        // 6. Cost Breakdown
+        new Chart(document.getElementById('costBreakdownChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Housing', 'Food', 'Transport', 'Education', 'Healthcare', 'Utilities', 'Other'],
+                datasets: [{
+                    data: [30, 35, 12, 10, 5, 5, 3],
+                    backgroundColor: [
+                        colors.terracotta, colors.gold, colors.teal, colors.slate, colors.muted, '#94a3b8', '#cbd5e1'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: {
+                    legend: { position: 'right', labels: { padding: 12, font: { size: 11 } } }
+                }
+            }
+        });
+
+        // 7. Living Wage by City
+        new Chart(document.getElementById('livingWageCityChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Lagos', 'Abuja', 'Port Harcourt', 'Kano', 'Ibadan', 'Rural Areas'],
+                datasets: [{
+                    label: 'Minimum Living Wage',
+                    data: [400, 350, 300, 200, 220, 150],
+                    backgroundColor: colors.terracottaLight,
+                    borderColor: colors.terracotta,
+                    borderWidth: 2,
+                    borderRadius: 4
+                }, {
+                    label: 'Comfortable Living',
+                    data: [600, 500, 450, 300, 320, 220],
+                    backgroundColor: colors.tealLight,
+                    borderColor: colors.teal,
+                    borderWidth: 2,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } },
+                scales: {
+                    y: { title: { display: true, text: 'Monthly (₦000s)' } }
+                }
+            }
+        });
+
+        // 8. Informal Drivers
+        new Chart(document.getElementById('informalDriversChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Formal Job Scarcity', 'Low Entry Barriers', 'Flexible Hours', 'Higher Potential Earnings', 'Autonomy', 'No Credentials Required'],
+                datasets: [{
+                    label: 'Impact Factor',
+                    data: [95, 90, 85, 70, 80, 88],
+                    backgroundColor: colors.terracottaLight,
+                    borderColor: colors.terracotta,
+                    borderWidth: 2,
+                    pointBackgroundColor: colors.terracotta,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { stepSize: 20 }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 9. Summary Chart
+        new Chart(document.getElementById('summaryChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Informal Employment', 'Below Poverty Line', 'Agriculture Workers', 'Self-Employed', 'Formal Wage Workers'],
+                datasets: [{
+                    label: 'Percentage of Workforce/Population',
+                    data: [92, 59, 35, 66, 12],
+                    backgroundColor: [colors.terracotta, colors.gold, colors.teal, colors.slate, colors.muted],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { max: 100, title: { display: true, text: 'Percentage (%)' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
